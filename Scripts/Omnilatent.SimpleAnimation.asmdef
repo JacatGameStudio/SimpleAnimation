@@ -2,7 +2,7 @@
     "name": "SimpleAnimation",
     "rootNamespace": "",
     "references": [
-        "GUID:2ec460e234892cf4ba87872474ccac5e"
+        "DOTween.Modules"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
