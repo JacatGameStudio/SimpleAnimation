@@ -1,0 +1,16 @@
+{
+    "name": "SimpleAnimation",
+    "rootNamespace": "",
+    "references": [
+        "GUID:2ec460e234892cf4ba87872474ccac5e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
