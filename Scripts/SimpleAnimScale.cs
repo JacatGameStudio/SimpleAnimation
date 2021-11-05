@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Omnilatent.SimpleAnimation
 {
 
-    public class SimpleAnimScale : SimpleAnim
+    public class SimpleAnimScale : SimpleAnimBase
     {
         [ConditionalField(nameof(useDefault), true)] [SerializeField] float scaleStart = 0;
         [ConditionalField(nameof(useDefault), true)] [SerializeField] float scaleEnd = 1;
@@ -44,8 +44,9 @@ namespace Omnilatent.SimpleAnimation
             }
         }
 
-        public void Show()
+        public override void Show()
         {
+            base.Show();
             onStartShow?.Invoke();
             StartCoroutine(Co_ShowAnim());
         }
@@ -56,10 +57,11 @@ namespace Omnilatent.SimpleAnimation
             transform.DOScale(scaleEnd, timeDuration > 0 ? timeDuration : 0.1f).From(scaleStart).SetEase(showEase).OnComplete(() => onEndShow?.Invoke());
         }
 
-        public void Hide()
+        public override void Hide()
         {
+            base.Hide();
             onStartHide?.Invoke();
-            transform.DOScale(scaleStart, timeDuration > 0 ? timeDuration : 0.1f).From(scaleEnd).SetEase(hideEase).OnComplete(() => onEndHide?.Invoke());
+            transform.DOScale(scaleStart, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase).OnComplete(() => onEndHide?.Invoke());
         }
     }
 }

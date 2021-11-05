@@ -5,7 +5,7 @@ using System;
 
 namespace Omnilatent.SimpleAnimation
 {
-    public class SimpleAnim : MonoBehaviour
+    public class SimpleAnimBase : MonoBehaviour
     {
         public Ease showEase, hideEase;
         public Action onStartShow, onEndShow, onStartHide, onEndHide;
@@ -17,6 +17,9 @@ namespace Omnilatent.SimpleAnimation
         [ConditionalField(nameof(useDefault), true)] [SerializeField] protected float timeDuration = 0.385f;
         [ConditionalField(nameof(useDefault), true)] [SerializeField] protected float timeDelay = 0;
         [ConditionalField(nameof(useDefault), true)] [SerializeField] protected bool enableOnAwake = true;
+
+        public virtual void Show() { }
+        public virtual void Hide() { }
     }
 
     

@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Omnilatent.SimpleAnimation
 {
     [RequireComponent(typeof(RectTransform))]
-    public class SimpleAnimSlide : SimpleAnim
+    public class SimpleAnimSlide : SimpleAnimBase
     {
         [ConditionalField(nameof(useDefault), true)] [SerializeField] Vector2 posStart;
         [ConditionalField(nameof(useDefault), true)] [SerializeField] Vector2 posEnd;

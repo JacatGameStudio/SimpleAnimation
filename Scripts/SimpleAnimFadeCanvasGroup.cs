@@ -7,7 +7,7 @@ namespace Omnilatent.SimpleAnimation
 {
     [RequireComponent(typeof(CanvasGroup))]
 
-    public class SimpleAnimFadeCanvasGroup : SimpleAnim
+    public class SimpleAnimFadeCanvasGroup : SimpleAnimBase
     {
         [ConditionalField(nameof(useDefault), true)] [SerializeField] float opacityStart = 0;
         [ConditionalField(nameof(useDefault), true)] [SerializeField] float opacityEnd = 1;
@@ -50,7 +50,7 @@ namespace Omnilatent.SimpleAnimation
             }
         }
 
-        public void Show()
+        public override void Show()
         {
             onStartShow?.Invoke();
             StartCoroutine(Co_ShowAnim());
@@ -62,7 +62,7 @@ namespace Omnilatent.SimpleAnimation
             canvasGroup.DOFade(opacityEnd, timeDuration > 0 ? timeDuration : 0.1f).From(opacityStart).SetEase(showEase).OnComplete(() => onEndShow?.Invoke());
         }
 
-        public void Hide()
+        public override void Hide()
         {
             onStartHide?.Invoke();
             canvasGroup.DOFade(opacityStart, timeDuration > 0 ? timeDuration : 0.1f).From(opacityEnd).SetEase(hideEase).OnComplete(() => onEndHide?.Invoke());
