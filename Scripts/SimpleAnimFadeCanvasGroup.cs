@@ -19,16 +19,31 @@ namespace Omnilatent.SimpleAnimation
             canvasGroup = GetComponent<CanvasGroup>();
         }
 
+        private void OnEnable()
+        {
+            if (triggerAnim == TimeTriggerAnim.OnEnable)
+            {
+                Show();
+            }
+        }
+
+        private void Start()
+        {
+            if (triggerAnim == TimeTriggerAnim.OnStart)
+            {
+                Show();
+            }
+        }
+
         public override void Show()
         {
-            onStartShow?.Invoke();
             StartCoroutine(Co_ShowAnim());
         }
 
         IEnumerator Co_ShowAnim()
         {
             yield return new WaitForSeconds(timeDelay > 0 ? timeDelay : 0);
-            canvasGroup.DOFade(opacityEnd, timeDuration > 0 ? timeDuration : 0.1f).From(opacityStart).SetEase(showEase).OnComplete(() => onEndShow?.Invoke());
+            canvasGroup.DOFade(opacityEnd, timeDuration > 0 ? timeDuration : 0.1f).From(opacityStart).SetEase(showEase);
         }
 
         public override void Hide()

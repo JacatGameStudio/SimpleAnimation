@@ -12,10 +12,14 @@ namespace Omnilatent.SimpleAnimation
         [ConditionalField(nameof(useDefaultSetting), true)] [SerializeField] Vector2 posStart;
         [ConditionalField(nameof(useDefaultSetting), true)] [SerializeField] Vector2 posEnd;
 
-        [SerializeField] Direction direction;
+        [ConditionalField(nameof(useDefaultSetting), false)] [SerializeField] Direction direction;
+        [ConditionalField(nameof(direction), false, Direction.Left, Direction.Right)] float posStart_x;
+        [ConditionalField(nameof(direction), false, Direction.Top, Direction.Bottom)] float posStart_y;
+
         RectTransform rect;
         private void Awake()
         {
+            rect = GetComponent<RectTransform>();
             if (useDefaultSetting)
             {
                 //rect = GetComponent<RectTransform>();
@@ -45,22 +49,64 @@ namespace Omnilatent.SimpleAnimation
             }
         }
 
+        private void OnEnable()
+        {
+            if(triggerAnim == TimeTriggerAnim.OnEnable)
+            {
+                Show();
+            }
+        }
+
+        private void Start()
+        {
+            if (triggerAnim == TimeTriggerAnim.OnStart)
+            {
+                Show();
+            }
+        }
+
         public override void Show()
         {
-            onStartShow?.Invoke();
             StartCoroutine(Co_ShowAnim());
         }
 
         IEnumerator Co_ShowAnim()
         {
-            rect.anchoredPosition = posStart;
-            yield return new WaitForSeconds(timeDelay > 0 ? timeDelay : 0);
-             rect.DOAnchorPos(posEnd, timeDuration > 0 ? timeDuration : 0.1f).SetEase(showEase).OnComplete(() => onEndShow?.Invoke());
+            Vector2 rootPos = rect.anchoredPosition;
+            if (useDefaultSetting)
+            {
+                rect.anchoredPosition = posStart;
+                yield return new WaitForSeconds(timeDelay > 0 ? timeDelay : 0);
+                rect.DOAnchorPos(posEnd, timeDuration > 0 ? timeDuration : 0.1f).SetEase(showEase);
+            }
+            else
+            {
+                if (direction == Direction.Left || direction == Direction.Right)
+                {
+                    rect.anchoredPosition = new Vector2(posStart_x, rootPos.y);
+                    yield return new WaitForSeconds(timeDelay > 0 ? timeDelay : 0);
+                    rect.DOAnchorPosX(rootPos.x, timeDuration > 0 ? timeDuration : 0.1f).SetEase(showEase);
+                }
+                else if (direction == Direction.Top || direction == Direction.Bottom) 
+                {
+                    rect.anchoredPosition = new Vector2(rootPos.x, posStart_y);
+                    yield return new WaitForSeconds(timeDelay > 0 ? timeDelay : 0);
+                    rect.DOAnchorPosX(rootPos.y, timeDuration > 0 ? timeDuration : 0.1f).SetEase(showEase);
+                }
+            }
         }
 
         public override void Hide()
         {
-            transform.DOScale(posStart, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase);
+            if(useDefaultSetting)
+                rect.DOAnchorPos(posStart, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase);
+            else
+            {
+                if(direction == Direction.Left || direction == Direction.Right)
+                    rect.DOAnchorPosX(posStart_x, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase);
+                else if(direction == Direction.Top || direction == Direction.Bottom)
+                    rect.DOAnchorPosY(posStart_y, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase);
+            }
         }
     }
 
