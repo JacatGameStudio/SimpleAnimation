@@ -91,7 +91,7 @@ namespace Omnilatent.SimpleAnimation
                 {
                     rect.anchoredPosition = new Vector2(rootPos.x, posStart_y);
                     yield return new WaitForSeconds(timeDelay > 0 ? timeDelay : 0);
-                    rect.DOAnchorPosX(rootPos.y, timeDuration > 0 ? timeDuration : 0.1f).SetEase(showEase);
+                    rect.DOAnchorPosY(rootPos.y, timeDuration > 0 ? timeDuration : 0.1f).SetEase(showEase);
                 }
             }
         }
