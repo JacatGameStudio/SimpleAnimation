@@ -6,48 +6,17 @@ using UnityEngine;
 namespace Omnilatent.SimpleAnimation
 {
     [RequireComponent(typeof(CanvasGroup))]
+    [RequireComponent(typeof(SimpleAnimObject))]
 
     public class SimpleAnimFadeCanvasGroup : SimpleAnimBase
     {
-        [ConditionalField(nameof(useDefault), true)] [SerializeField] float opacityStart = 0;
-        [ConditionalField(nameof(useDefault), true)] [SerializeField] float opacityEnd = 1;
+        [ConditionalField(nameof(useDefaultSetting), true)] [SerializeField] float opacityStart = 0;
+        [ConditionalField(nameof(useDefaultSetting), true)] [SerializeField] float opacityEnd = 1;
 
         CanvasGroup canvasGroup;
         private void Awake()
         {
             canvasGroup = GetComponent<CanvasGroup>();
-        }
-        private void OnEnable()
-        {
-            gameObject.SetActive(enableOnAwake);
-
-            if (timeFireShowAnim == TimeFireShowAnim.OnEnable)
-            {
-                Show();
-            }
-        }
-        private void Start()
-        {
-            if (timeFireShowAnim == TimeFireShowAnim.OnStart)
-            {
-                Show();
-            }
-        }
-
-        private void OnDisable()
-        {
-            if (timeFireHideAnim == TimeFireHideAnim.OnDisable)
-            {
-                Hide();
-            }
-        }
-
-        private void OnDestroy()
-        {
-            if (timeFireHideAnim == TimeFireHideAnim.OnDisable)
-            {
-                Hide();
-            }
         }
 
         public override void Show()
@@ -64,8 +33,7 @@ namespace Omnilatent.SimpleAnimation
 
         public override void Hide()
         {
-            onStartHide?.Invoke();
-            canvasGroup.DOFade(opacityStart, timeDuration > 0 ? timeDuration : 0.1f).From(opacityEnd).SetEase(hideEase).OnComplete(() => onEndHide?.Invoke());
+            canvasGroup.DOFade(opacityStart, timeDuration > 0 ? timeDuration : 0.1f).From(opacityEnd).SetEase(hideEase);
         }
     }
 }

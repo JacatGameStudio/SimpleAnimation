@@ -8,6 +8,25 @@ namespace Omnilatent.SimpleAnimation
     {
         SimpleAnimBase[] simpleAnim;
 
+        private void Awake()
+        {
+            simpleAnim = GetComponents<SimpleAnimBase>();
+        }
 
+        public void Show()
+        {
+            foreach(var i in simpleAnim)
+            {
+                i.Show();
+            }
+        }
+
+        public void Hide()
+        {
+            foreach (var i in simpleAnim)
+            {
+                i.Hide();
+            }
+        }
     }
 }

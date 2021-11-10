@@ -5,44 +5,11 @@ using UnityEngine;
 
 namespace Omnilatent.SimpleAnimation
 {
-
+    [RequireComponent(typeof(SimpleAnimObject))]
     public class SimpleAnimScale : SimpleAnimBase
     {
-        [ConditionalField(nameof(useDefault), true)] [SerializeField] float scaleStart = 0;
-        [ConditionalField(nameof(useDefault), true)] [SerializeField] float scaleEnd = 1;
-
-        private void OnEnable()
-        {
-            gameObject.SetActive(enableOnAwake);
-
-            if (timeFireShowAnim == TimeFireShowAnim.OnEnable)
-            {
-                Show();
-            }
-        }
-        private void Start()
-        {
-            if (timeFireShowAnim == TimeFireShowAnim.OnStart)
-            {
-                Show();
-            }
-        }
-
-        private void OnDisable()
-        {
-            if (timeFireHideAnim == TimeFireHideAnim.OnDisable)
-            {
-                Hide();
-            }
-        }
-
-        private void OnDestroy()
-        {
-            if (timeFireHideAnim == TimeFireHideAnim.OnDisable)
-            {
-                Hide();
-            }
-        }
+        [ConditionalField(nameof(useDefaultSetting), true)] [SerializeField] float scaleStart = 0;
+        [ConditionalField(nameof(useDefaultSetting), true)] [SerializeField] float scaleEnd = 1;
 
         public override void Show()
         {
@@ -60,8 +27,7 @@ namespace Omnilatent.SimpleAnimation
         public override void Hide()
         {
             base.Hide();
-            onStartHide?.Invoke();
-            transform.DOScale(scaleStart, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase).OnComplete(() => onEndHide?.Invoke());
+            transform.DOScale(scaleStart, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase);
         }
     }
 }

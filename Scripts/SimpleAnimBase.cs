@@ -7,16 +7,24 @@ namespace Omnilatent.SimpleAnimation
 {
     public class SimpleAnimBase : MonoBehaviour
     {
-        public Ease showEase, hideEase;
-        public Action onStartShow, onEndShow, onStartHide, onEndHide;
+        [SerializeField] protected Ease showEase, hideEase;
+        public Action onStartShow, onEndShow;
 
-        [SerializeField] protected bool useDefault = true;
-        [ConditionalField(nameof(useDefault), true)] [SerializeField] protected TimeFireShowAnim timeFireShowAnim = TimeFireShowAnim.OnStart;
-        [ConditionalField(nameof(useDefault), true)] [SerializeField] protected TimeFireHideAnim timeFireHideAnim = TimeFireHideAnim.NotSet;
+        [SerializeField] protected bool useDefaultSetting = true;
 
-        [ConditionalField(nameof(useDefault), true)] [SerializeField] protected float timeDuration = 0.385f;
-        [ConditionalField(nameof(useDefault), true)] [SerializeField] protected float timeDelay = 0;
-        [ConditionalField(nameof(useDefault), true)] [SerializeField] protected bool enableOnAwake = true;
+        [ConditionalField(nameof(useDefaultSetting), true)] [Tooltip("Time duration of animation")] [SerializeField] protected float timeDuration = 0.385f;
+        [ConditionalField(nameof(useDefaultSetting), true)] [Tooltip("Time delay before start amimation")] [SerializeField] protected float timeDelay = 0;
+        [ConditionalField(nameof(useDefaultSetting), true)] [SerializeField] protected bool hideOnAwake = true;
+
+        /// <summary>
+        /// Time duration of animation
+        /// </summary>
+        public float TimeDuration { get => timeDuration; }
+
+        /// <summary>
+        /// Time delay before start amimation
+        /// </summary>
+        public float TimeDelay { get => timeDelay; }
 
         public virtual void Show() { }
         public virtual void Hide() { }
@@ -26,10 +34,5 @@ namespace Omnilatent.SimpleAnimation
     public enum TimeFireShowAnim
     {
         NotSet = 0, OnEnable = 1, OnStart = 2
-    }
-
-    public enum TimeFireHideAnim
-    {
-        NotSet = 0, OnDisable = 1, OnDestroy = 2
     }
 }

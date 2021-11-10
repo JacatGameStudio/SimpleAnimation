@@ -6,16 +6,17 @@ using UnityEngine;
 namespace Omnilatent.SimpleAnimation
 {
     [RequireComponent(typeof(RectTransform))]
+    [RequireComponent(typeof(SimpleAnimObject))]
     public class SimpleAnimSlide : SimpleAnimBase
     {
-        [ConditionalField(nameof(useDefault), true)] [SerializeField] Vector2 posStart;
-        [ConditionalField(nameof(useDefault), true)] [SerializeField] Vector2 posEnd;
+        [ConditionalField(nameof(useDefaultSetting), true)] [SerializeField] Vector2 posStart;
+        [ConditionalField(nameof(useDefaultSetting), true)] [SerializeField] Vector2 posEnd;
 
         [SerializeField] Direction direction;
         RectTransform rect;
         private void Awake()
         {
-            if (useDefault)
+            if (useDefaultSetting)
             {
                 //rect = GetComponent<RectTransform>();
                 //posEnd = rect.anchoredPosition;  
@@ -43,40 +44,8 @@ namespace Omnilatent.SimpleAnimation
 
             }
         }
-        private void OnEnable()
-        {
-            gameObject.SetActive(enableOnAwake);
 
-            if (timeFireShowAnim == TimeFireShowAnim.OnEnable)
-            {
-                Show();
-            }
-        }
-        private void Start()
-        {
-            if (timeFireShowAnim == TimeFireShowAnim.OnStart)
-            {
-                Show();
-            }
-        }
-
-        private void OnDisable()
-        {
-            if (timeFireHideAnim == TimeFireHideAnim.OnDisable)
-            {
-                Hide();
-            }
-        }
-
-        private void OnDestroy()
-        {
-            if (timeFireHideAnim == TimeFireHideAnim.OnDisable)
-            {
-                Hide();
-            }
-        }
-
-        public void Show()
+        public override void Show()
         {
             onStartShow?.Invoke();
             StartCoroutine(Co_ShowAnim());
@@ -89,10 +58,9 @@ namespace Omnilatent.SimpleAnimation
              rect.DOAnchorPos(posEnd, timeDuration > 0 ? timeDuration : 0.1f).SetEase(showEase).OnComplete(() => onEndShow?.Invoke());
         }
 
-        public void Hide()
+        public override void Hide()
         {
-            onStartHide?.Invoke();
-            transform.DOScale(posStart, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase).OnComplete(() => onEndHide?.Invoke());
+            transform.DOScale(posStart, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase);
         }
     }
 
