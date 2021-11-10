@@ -1,7 +1,7 @@
 {
     "name": "com.omnilatent.simpleanimation",
     "displayName": "Omnilatent Simple Animation",
-    "version": "0.1",
+    "version": "0.0.1",
     "unity": "2018.1",
     "description": "animation for ui",
     "keywords": ["utility"],
