@@ -19,7 +19,7 @@ namespace Omnilatent.SimpleAnimation
         /// <summary>
         /// Time duration of animation
         /// </summary>
-        public float TimeDuration { get => timeDuration; }
+        public float TimeDuration { get => timeDuration;  set => timeDelay = value;}
 
         /// <summary>
         /// Time delay before start amimation
