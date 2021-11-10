@@ -13,18 +13,18 @@ namespace Omnilatent.SimpleAnimation
 
         [ConditionalField(nameof(useDefaultSetting), true)] [Tooltip("Time duration of animation")] [SerializeField] protected float timeDuration = 0.385f;
         [ConditionalField(nameof(useDefaultSetting), true)] [Tooltip("Time delay before start amimation")] [SerializeField] protected float timeDelay = 0;
-        [ConditionalField(nameof(useDefaultSetting), true)] [Tooltip("Time delay before start amimation")] [SerializeField] protected TimeTriggerAnim triggerAnim = TimeTriggerAnim.OnStart;
+        [ConditionalField(nameof(useDefaultSetting), true)] [Tooltip("Time trigger amimation")] [SerializeField] protected TimeTriggerAnim triggerAnim = TimeTriggerAnim.OnStart;
         [ConditionalField(nameof(useDefaultSetting), true)] [SerializeField] protected bool hideOnAwake = true;
 
         /// <summary>
         /// Time duration of animation
         /// </summary>
-        public float TimeDuration { get => timeDuration;  set => timeDelay = value;}
+        public float TimeDuration { get => timeDuration;}
 
         /// <summary>
         /// Time delay before start amimation
         /// </summary>
-        public float TimeDelay { get => timeDelay; }
+        public float TimeDelay { get => timeDelay; set => timeDelay = value;}
 
         public virtual void Show() { }
         public virtual void Hide() { }
