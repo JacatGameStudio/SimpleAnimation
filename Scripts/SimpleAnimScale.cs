@@ -35,6 +35,8 @@ namespace Omnilatent.SimpleAnimation
 
         IEnumerator Co_ShowAnim()
         {
+            if (hideOnAwake)
+                transform.localScale = Vector3.zero;
             yield return new WaitForSeconds(timeDelay > 0 ? timeDelay : 0);
             transform.DOScale(scaleEnd, timeDuration > 0 ? timeDuration : 0.1f).From(scaleStart).SetEase(showEase);
         }

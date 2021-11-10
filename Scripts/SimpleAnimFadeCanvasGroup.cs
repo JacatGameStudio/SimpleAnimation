@@ -42,6 +42,8 @@ namespace Omnilatent.SimpleAnimation
 
         IEnumerator Co_ShowAnim()
         {
+            if (hideOnAwake)
+                canvasGroup.alpha = 0;
             yield return new WaitForSeconds(timeDelay > 0 ? timeDelay : 0);
             canvasGroup.DOFade(opacityEnd, timeDuration > 0 ? timeDuration : 0.1f).From(opacityStart).SetEase(showEase);
         }
