@@ -13,8 +13,8 @@ namespace Omnilatent.SimpleAnimation
         [ConditionalField(nameof(useDefaultSetting), true)] [SerializeField] Vector2 posEnd;
 
         [ConditionalField(nameof(useDefaultSetting), false)] [SerializeField] Direction direction;
-        [ConditionalField(nameof(direction), false, Direction.Left, Direction.Right)] float posStart_x;
-        [ConditionalField(nameof(direction), false, Direction.Top, Direction.Bottom)] float posStart_y;
+        [ConditionalField(nameof(direction), true, Direction.Bottom, Direction.Top, Direction.NotSet)] [SerializeField] float posStart_x;
+        [ConditionalField(nameof(direction), true, Direction.Left, Direction.Right, Direction.NotSet)] [SerializeField] float posStart_y;
 
         RectTransform rect;
         private void Awake()
