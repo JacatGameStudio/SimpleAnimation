@@ -73,7 +73,7 @@ namespace Omnilatent.SimpleAnimation
         IEnumerator Co_ShowAnim()
         {
             Vector2 rootPos = rect.anchoredPosition;
-            if (useDefaultSetting)
+            if (!useDefaultSetting)
             {
                 rect.anchoredPosition = posStart;
                 yield return new WaitForSeconds(timeDelay > 0 ? timeDelay : 0);
@@ -98,7 +98,7 @@ namespace Omnilatent.SimpleAnimation
 
         public override void Hide()
         {
-            if(useDefaultSetting)
+            if(!useDefaultSetting)
                 rect.DOAnchorPos(posStart, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase);
             else
             {
