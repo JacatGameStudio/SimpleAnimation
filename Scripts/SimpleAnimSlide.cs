@@ -17,11 +17,9 @@ namespace Omnilatent.SimpleAnimation
         [ConditionalField(nameof(direction), true, Direction.Left, Direction.Right, Direction.NotSet)] [SerializeField] float posStart_y;
 
         RectTransform rect;
-        Vector2 rootPos;
         private void Awake()
         {
             rect = GetComponent<RectTransform>();
-            rootPos = rect.anchoredPosition;
             if (useDefaultSetting)
             {
                 //rect = GetComponent<RectTransform>();
@@ -74,6 +72,7 @@ namespace Omnilatent.SimpleAnimation
 
         IEnumerator Co_ShowAnim()
         {
+            Vector2 rootPos = rect.anchoredPosition;
             if (!useDefaultSetting)
             {
                 rect.anchoredPosition = posStart;
@@ -104,9 +103,9 @@ namespace Omnilatent.SimpleAnimation
             else
             {
                 if(direction == Direction.Left || direction == Direction.Right)
-                    rect.DOAnchorPosX(rootPos.x, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase);
+                    rect.DOAnchorPosX(posStart_x, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase);
                 else if(direction == Direction.Top || direction == Direction.Bottom)
-                    rect.DOAnchorPosY(rootPos.y, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase);
+                    rect.DOAnchorPosY(posStart_y, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase);
             }
         }
     }
