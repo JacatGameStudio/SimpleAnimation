@@ -49,6 +49,9 @@ namespace Omnilatent.SimpleAnimation
                 //}
 
             }
+            
+            if (hideOnAwake)
+                gameObject.SetActive(false);
         }
 
         private void OnEnable()
@@ -69,6 +72,7 @@ namespace Omnilatent.SimpleAnimation
 
         public override void Show()
         {
+            gameObject.SetActive(true);
             StartCoroutine(Co_ShowAnim());
         }
 
