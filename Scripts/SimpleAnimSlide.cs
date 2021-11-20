@@ -2,7 +2,7 @@
 using MyBox;
 using System.Collections;
 using UnityEngine;
-
+using System;
 namespace Omnilatent.SimpleAnimation
 {
     [RequireComponent(typeof(RectTransform))]
@@ -107,6 +107,20 @@ namespace Omnilatent.SimpleAnimation
                     rect.DOAnchorPosX(posStart_x, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase);
                 else if(direction == Direction.Top || direction == Direction.Bottom)
                     rect.DOAnchorPosY(posStart_y, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase);
+            }
+        }
+
+
+        public override void Hide(Action onEndHide)
+        {
+            if (!useDefaultSetting)
+                rect.DOAnchorPos(posStart, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase);
+            else
+            {
+                if (direction == Direction.Left || direction == Direction.Right)
+                    rect.DOAnchorPosX(posStart_x, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase).OnComplete(() => onEndHide?.Invoke());
+                else if (direction == Direction.Top || direction == Direction.Bottom)
+                    rect.DOAnchorPosY(posStart_y, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase).OnComplete(() => onEndHide?.Invoke());
             }
         }
     }
