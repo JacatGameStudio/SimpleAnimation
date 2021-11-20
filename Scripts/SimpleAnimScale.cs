@@ -2,6 +2,7 @@ using DG.Tweening;
 using MyBox;
 using System.Collections;
 using UnityEngine;
+using System;
 
 namespace Omnilatent.SimpleAnimation
 {
@@ -45,6 +46,12 @@ namespace Omnilatent.SimpleAnimation
         {
             base.Hide();
             transform.DOScale(scaleStart, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase);
+        }
+
+        public override void Hide(Action onEndHide)
+        {
+            base.Hide();
+            transform.DOScale(scaleStart, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase).OnComplete(() => onEndHide?.Invoke());
         }
     }
 }

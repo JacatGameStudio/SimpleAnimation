@@ -28,6 +28,7 @@ namespace Omnilatent.SimpleAnimation
 
         public virtual void Show() { }
         public virtual void Hide() { }
+        public virtual void Hide(Action onEndHide) { }
     }
 
     

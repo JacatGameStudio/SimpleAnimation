@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace Omnilatent.SimpleAnimation
 {
@@ -26,6 +27,14 @@ namespace Omnilatent.SimpleAnimation
             foreach (var i in simpleAnim)
             {
                 i.Hide();
+            }
+        }
+
+        public void Hide(Action onEndHide)
+        {
+            foreach (var i in simpleAnim)
+            {
+                i.Hide(onEndHide);
             }
         }
     }
