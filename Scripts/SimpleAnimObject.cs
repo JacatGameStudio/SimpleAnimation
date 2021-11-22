@@ -31,21 +31,21 @@ namespace Omnilatent.SimpleAnimation
             simpleAnim = GetComponents<SimpleAnimBase>();
         }
 
-        public void Show()
+        public void Show(bool immediately = false)
         {
             foreach (var i in simpleAnim)
             {
                 if (i.isActiveAndEnabled)
-                    i.Show();
+                    i.Show(immediately);
             }
         }
 
-        public void Hide()
+        public void Hide(bool immediately = false)
         {
             foreach (var i in simpleAnim)
             {
                 if (i.isActiveAndEnabled)
-                    i.Hide();
+                    i.Hide(immediately);
             }
         }
 
