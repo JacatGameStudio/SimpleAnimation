@@ -57,5 +57,15 @@ namespace Omnilatent.SimpleAnimation
                     i.Hide(onEndHide);
             }
         }
+
+        public SimpleAnimBase GetAnimBase()
+        {
+            if (simpleAnim.Length == 0)
+            {
+                Debug.LogError("This SimpleAnimObject does not have any SimpleAnimBase component");
+                return null;
+            }
+            return simpleAnim[0];
+        }
     }
 }
