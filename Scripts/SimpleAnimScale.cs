@@ -28,30 +28,48 @@ namespace Omnilatent.SimpleAnimation
             }
         }
 
-        public override void Show()
-        {
-            base.Show();
-            StartCoroutine(Co_ShowAnim());
-        }
-
-        IEnumerator Co_ShowAnim()
+        public override void Show(bool immediately = false)
         {
             if (hideOnAwake)
                 transform.localScale = Vector3.zero;
-            yield return new WaitForSeconds(timeDelay > 0 ? timeDelay : 0);
-            transform.DOScale(scaleEnd, timeDuration > 0 ? timeDuration : 0.1f).From(scaleStart).SetEase(showEase);
+
+            if (!immediately)
+                transform.DOScale(scaleEnd, timeDuration > 0 ? timeDuration : 0.1f).From(scaleStart).SetEase(showEase).SetDelay(timeDelay > 0 ? timeDelay : 0);
+            else
+                transform.localScale = scaleEnd * Vector3.one;
         }
 
-        public override void Hide()
+        public override void Show(Action onEndStart, bool immediately = false)
         {
-            base.Hide();
-            transform.DOScale(scaleStart, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase);
+            if (hideOnAwake)
+                transform.localScale = Vector3.zero;
+
+            if (!immediately)
+                transform.DOScale(scaleEnd, timeDuration > 0 ? timeDuration : 0.1f).From(scaleStart).SetEase(showEase).SetDelay(timeDelay > 0 ? timeDelay : 0).OnComplete(() => onEndStart?.Invoke());
+            else
+            {
+                onEndStart?.Invoke();
+                transform.localScale = scaleEnd * Vector3.one;
+            }
         }
 
-        public override void Hide(Action onEndHide)
+        public override void Hide(bool immediately = false)
         {
-            base.Hide();
-            transform.DOScale(scaleStart, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase).OnComplete(() => onEndHide?.Invoke());
+            if (!immediately)
+                transform.DOScale(scaleStart, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase);
+            else
+                transform.localScale = scaleStart * Vector3.one;
+        }
+
+        public override void Hide(Action onEndHide, bool immediately = false)
+        {
+            if(!immediately)
+                transform.DOScale(scaleStart, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase).OnComplete(() => onEndHide?.Invoke());
+            else
+            {
+                transform.localScale = scaleStart * Vector3.one;
+                onEndHide?.Invoke();
+            }
         }
     }
 }

@@ -1,13 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System;
+using UnityEngine;
 
 namespace Omnilatent.SimpleAnimation
 {
     public class SimpleAnimObject : MonoBehaviour
     {
         SimpleAnimBase[] simpleAnim;
+        float timeDuration;
+
+        /// <summary>
+        /// return timeDuration of first simpleAnimBase
+        /// </summary>
+        public float TimeDuration
+        {
+            get
+            {
+                if (simpleAnim.Length == 0)
+                {
+                    Debug.LogError("SimpleObject has no SimpleAnimBase");
+                    return 0;
+                }
+                else
+                {
+                    return simpleAnim[0].TimeDuration;
+                }
+            }
+        }
 
         private void Awake()
         {
@@ -16,9 +34,10 @@ namespace Omnilatent.SimpleAnimation
 
         public void Show()
         {
-            foreach(var i in simpleAnim)
+            foreach (var i in simpleAnim)
             {
-                i.Show();
+                if (i.isActiveAndEnabled)
+                    i.Show();
             }
         }
 
@@ -26,7 +45,8 @@ namespace Omnilatent.SimpleAnimation
         {
             foreach (var i in simpleAnim)
             {
-                i.Hide();
+                if (i.isActiveAndEnabled)
+                    i.Hide();
             }
         }
 
@@ -34,7 +54,8 @@ namespace Omnilatent.SimpleAnimation
         {
             foreach (var i in simpleAnim)
             {
-                i.Hide(onEndHide);
+                if (i.isActiveAndEnabled)
+                    i.Hide(onEndHide);
             }
         }
     }

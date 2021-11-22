@@ -26,9 +26,10 @@ namespace Omnilatent.SimpleAnimation
         /// </summary>
         public float TimeDelay { get => timeDelay; set => timeDelay = value;}
 
-        public virtual void Show() { }
-        public virtual void Hide() { }
-        public virtual void Hide(Action onEndHide) { }
+        public virtual void Show(bool immediately = false) { }
+        public virtual void Show(Action onEndStart, bool immediately = false) { }
+        public virtual void Hide(bool immediately = false) { }
+        public virtual void Hide(Action onEndHide, bool immediately = false) { }
     }
 
     
