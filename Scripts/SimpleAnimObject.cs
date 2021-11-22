@@ -17,8 +17,7 @@ namespace Omnilatent.SimpleAnimation
             {
                 if (simpleAnim.Length == 0)
                 {
-                    Debug.LogError("SimpleObject has no SimpleAnimBase");
-                    return 0;
+                    throw new NullReferenceException("SimpleObject has no SimpleAnimBase");
                 }
                 else
                 {
