@@ -24,6 +24,13 @@ namespace Omnilatent.SimpleAnimation
                     return simpleAnim[0].TimeDuration;
                 }
             }
+            set
+            {
+                foreach(var i in simpleAnim)
+                {
+                    i.TimeDuration = value;
+                }
+            }
         }
 
         private void Awake()
@@ -40,6 +47,15 @@ namespace Omnilatent.SimpleAnimation
             }
         }
 
+        public void Show(Action onEndShow, bool immediately = false)
+        {
+            foreach (var i in simpleAnim)
+            {
+                if (i.isActiveAndEnabled)
+                    i.Show(onEndShow, immediately);
+            }
+        }
+
         public void Hide(bool immediately = false)
         {
             foreach (var i in simpleAnim)
@@ -49,12 +65,12 @@ namespace Omnilatent.SimpleAnimation
             }
         }
 
-        public void Hide(Action onEndHide)
+        public void Hide(Action onEndHide, bool immediately = false)
         {
             foreach (var i in simpleAnim)
             {
                 if (i.isActiveAndEnabled)
-                    i.Hide(onEndHide);
+                    i.Hide(onEndHide, immediately);
             }
         }
 
