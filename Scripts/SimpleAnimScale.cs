@@ -9,8 +9,8 @@ namespace Omnilatent.SimpleAnimation
     [RequireComponent(typeof(SimpleAnimObject))]
     public class SimpleAnimScale : SimpleAnimBase
     {
-        [ConditionalField(nameof(useDefaultSetting), true)] [SerializeField] float scaleStart = 0;
-        [ConditionalField(nameof(useDefaultSetting), true)] [SerializeField] float scaleEnd = 1;
+        [ConditionalField(nameof(advancedSetting), true)] [SerializeField] float scaleStart = 0;
+        [ConditionalField(nameof(advancedSetting), true)] [SerializeField] float scaleEnd = 1;
 
         private void OnEnable()
         {

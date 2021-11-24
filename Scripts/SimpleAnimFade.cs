@@ -11,8 +11,8 @@ namespace Omnilatent.SimpleAnimation
 
     public class SimpleAnimFade : SimpleAnimBase
     {
-        [ConditionalField(nameof(useDefaultSetting), true)] [SerializeField] float opacityStart = 0;
-        [ConditionalField(nameof(useDefaultSetting), true)] [SerializeField] float opacityEnd = 1;
+        [ConditionalField(nameof(advancedSetting), true)] [SerializeField] float opacityStart = 0;
+        [ConditionalField(nameof(advancedSetting), true)] [SerializeField] float opacityEnd = 1;
 
         CanvasGroup canvasGroup;
         private void Awake()

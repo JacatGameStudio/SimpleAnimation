@@ -9,12 +9,12 @@ namespace Omnilatent.SimpleAnimation
     {
         [SerializeField] protected Ease showEase, hideEase;
 
-        [SerializeField] protected bool useDefaultSetting = true;
+        [SerializeField] protected bool advancedSetting = true;
 
-        [ConditionalField(nameof(useDefaultSetting), true)] [Tooltip("Time duration of animation")] [SerializeField] protected float timeDuration = 0.385f;
-        [ConditionalField(nameof(useDefaultSetting), true)] [Tooltip("Time delay before start amimation")] [SerializeField] protected float timeDelay = 0;
-        [ConditionalField(nameof(useDefaultSetting), true)] [Tooltip("Time trigger amimation")] [SerializeField] protected TimeTriggerAnim triggerAnim = TimeTriggerAnim.OnStart;
-        [ConditionalField(nameof(useDefaultSetting), true)] [SerializeField] protected bool hideOnAwake = true;
+        [Tooltip("Time duration of animation")] [SerializeField] protected float timeDuration = 0.385f;
+        [Tooltip("Time delay before start amimation")] [SerializeField] protected float timeDelay = 0;
+        [Tooltip("Time trigger amimation")] [SerializeField] protected TimeTriggerAnim triggerAnim = TimeTriggerAnim.OnStart;
+        [SerializeField] protected bool hideOnAwake = true;
 
         /// <summary>
         /// Time duration of animation
