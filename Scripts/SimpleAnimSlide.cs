@@ -16,6 +16,11 @@ namespace Omnilatent.SimpleAnimation
         public Vector2 PosEnd { get => posEnd; set => posEnd = value; }
         public RectTransform Rect { get => rect; set => rect = value; }
 
+        private void Awake()
+        {
+            rect = GetComponent<RectTransform>();
+        }
+
         private void OnEnable()
         {
             if (triggerAnim == TimeTriggerAnim.OnEnable)

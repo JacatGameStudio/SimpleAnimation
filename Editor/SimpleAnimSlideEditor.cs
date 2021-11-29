@@ -1,11 +1,11 @@
 using UnityEditor;
-using DG.Tweening;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
 namespace Omnilatent.SimpleAnimation
 {
+   // [ExecuteInEditMode]
     [CustomEditor(typeof(SimpleAnimSlide))]
     public class SimpleAnimSlideEditor : Editor
     {
