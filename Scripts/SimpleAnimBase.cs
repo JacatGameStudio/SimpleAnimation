@@ -1,6 +1,5 @@
 using DG.Tweening;
 using UnityEngine;
-using MyBox;
 using System;
 
 namespace Omnilatent.SimpleAnimation

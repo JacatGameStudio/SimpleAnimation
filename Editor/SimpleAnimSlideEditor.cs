@@ -1,66 +1,45 @@
 using UnityEditor;
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Omnilatent.SimpleAnimation
 {
-   // [ExecuteInEditMode]
     [CustomEditor(typeof(SimpleAnimSlide))]
-    public class SimpleAnimSlideEditor : Editor
+    public class SimpleAnimSlideEditor : SimpleAnimBaseEditor
     {
-        SerializedProperty showEase;
-        SerializedProperty hideEase;
-        SerializedProperty timeDuration;
-        SerializedProperty timeDelay;
-        SerializedProperty triggerAnim;
-        SerializedProperty hideOnAwake;
-
         SerializedProperty posStart;
         SerializedProperty posEnd;
 
-        bool advanced;
         RectTransform rect;
         SimpleAnimSlide slideAnim;
 
-        private void Awake()
+        protected override void Awake()
         {
-            showEase = serializedObject.FindProperty("showEase");
-            hideEase = serializedObject.FindProperty("hideEase");
-            timeDelay = serializedObject.FindProperty("timeDelay");
-            triggerAnim = serializedObject.FindProperty("triggerAnim");
-            hideOnAwake = serializedObject.FindProperty("hideOnAwake");
-            timeDuration = serializedObject.FindProperty("timeDuration");
+            base.Awake();
 
             posStart = serializedObject.FindProperty("posStart");
             posEnd = serializedObject.FindProperty("posEnd");
 
             slideAnim = target as SimpleAnimSlide;
-            rect = slideAnim.GetComponent<RectTransform>();
+            bool isRect = slideAnim.TryGetComponent<RectTransform>(out RectTransform _rect);
+            if (isRect)
+            {
+                rect = _rect;
+            }
         }
 
         public override void OnInspectorGUI()
         {
-            serializedObject.Update();
-            EditorGUILayout.PropertyField(showEase);
-            EditorGUILayout.PropertyField(hideEase);
-
-            advanced = EditorGUILayout.Foldout(advanced, new GUIContent("Advanced"));
-            if (advanced)
-            {
-                EditorGUILayout.PropertyField(timeDuration);
-                EditorGUILayout.PropertyField(timeDelay);
-                EditorGUILayout.PropertyField(triggerAnim);
-                EditorGUILayout.PropertyField(hideOnAwake);
-            }
-
+            base.OnInspectorGUI();
             GUILayout.Space(15);
 
             GUILayout.BeginHorizontal();
             EditorGUILayout.PropertyField(posStart, GUILayout.MaxWidth(450));
             if (GUILayout.Button("Get Pos", GUILayout.MaxWidth(80)))
             {
-                slideAnim.PosStart = rect.anchoredPosition;
+                if (rect != null)
+                    slideAnim.PosStart = rect.anchoredPosition;
+                else
+                    slideAnim.PosStart = slideAnim.transform.position;
             }
             GUILayout.EndHorizontal();
 
@@ -68,7 +47,10 @@ namespace Omnilatent.SimpleAnimation
             EditorGUILayout.PropertyField(posEnd, GUILayout.MaxWidth(450));
             if (GUILayout.Button("Get Pos", GUILayout.MaxWidth(80)))
             {
-                slideAnim.PosEnd = rect.anchoredPosition;
+                if (rect != null)
+                    slideAnim.PosEnd = rect.anchoredPosition;
+                else
+                    slideAnim.PosEnd = slideAnim.transform.position;
             }
             GUILayout.EndHorizontal();
             serializedObject.ApplyModifiedProperties();

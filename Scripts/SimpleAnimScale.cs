@@ -1,16 +1,14 @@
 using DG.Tweening;
-using MyBox;
-using System.Collections;
-using UnityEngine;
 using System;
+using UnityEngine;
 
 namespace Omnilatent.SimpleAnimation
 {
     [RequireComponent(typeof(SimpleAnimObject))]
     public class SimpleAnimScale : SimpleAnimBase
     {
-        [ConditionalField(nameof(advancedSetting), true)] [SerializeField] float scaleStart = 0;
-        [ConditionalField(nameof(advancedSetting), true)] [SerializeField] float scaleEnd = 1;
+        [SerializeField] float scaleStart = 0;
+        [SerializeField] float scaleEnd = 1;
 
         private void OnEnable()
         {
@@ -63,7 +61,7 @@ namespace Omnilatent.SimpleAnimation
 
         public override void Hide(Action onEndHide, bool immediately = false)
         {
-            if(!immediately)
+            if (!immediately)
                 transform.DOScale(scaleStart, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase).OnComplete(() => onEndHide?.Invoke());
             else
             {

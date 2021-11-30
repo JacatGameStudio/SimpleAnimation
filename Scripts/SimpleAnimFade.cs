@@ -1,8 +1,6 @@
 using DG.Tweening;
-using MyBox;
-using System.Collections;
-using UnityEngine;
 using System;
+using UnityEngine;
 
 namespace Omnilatent.SimpleAnimation
 {
@@ -11,8 +9,8 @@ namespace Omnilatent.SimpleAnimation
 
     public class SimpleAnimFade : SimpleAnimBase
     {
-        [ConditionalField(nameof(advancedSetting), true)] [SerializeField] float opacityStart = 0;
-        [ConditionalField(nameof(advancedSetting), true)] [SerializeField] float opacityEnd = 1;
+        [SerializeField] float opacityStart = 0;
+        [SerializeField] float opacityEnd = 1;
 
         CanvasGroup canvasGroup;
         private void Awake()
@@ -68,7 +66,7 @@ namespace Omnilatent.SimpleAnimation
 
         public override void Hide(Action onEndHide, bool immediately = false)
         {
-            if(!immediately)
+            if (!immediately)
                 canvasGroup.DOFade(opacityStart, timeDuration > 0 ? timeDuration : 0.1f).From(opacityEnd).SetEase(hideEase).OnComplete(() => onEndHide?.Invoke());
             else
             {
