@@ -50,8 +50,8 @@ namespace Omnilatent.SimpleAnimation
                 }
                 else
                 {
-                    transform.position = posStart;
-                    transform.DOMove(posEnd, timeDuration > 0 ? timeDuration : 0.1f).SetEase(showEase).SetDelay(timeDelay > 0 ? timeDelay : 0);
+                    transform.localPosition = posStart;
+                    transform.DOLocalMove(posEnd, timeDuration > 0 ? timeDuration : 0.1f).SetEase(showEase).SetDelay(timeDelay > 0 ? timeDelay : 0);
                 }
             }
             else
@@ -60,7 +60,7 @@ namespace Omnilatent.SimpleAnimation
                     rect.anchoredPosition = posEnd;
                 else
                 {
-                    transform.position = posEnd;
+                    transform.localPosition = posEnd;
                 }
             }
         }
@@ -77,8 +77,8 @@ namespace Omnilatent.SimpleAnimation
                 }
                 else
                 {
-                    transform.position = posStart;
-                    transform.DOMove(posEnd, timeDuration > 0 ? timeDuration : 0.1f).SetEase(showEase).SetDelay(timeDelay > 0 ? timeDelay : 0).OnComplete(() => onEndStart?.Invoke());
+                    transform.localPosition = posStart;
+                    transform.DOLocalMove(posEnd, timeDuration > 0 ? timeDuration : 0.1f).SetEase(showEase).SetDelay(timeDelay > 0 ? timeDelay : 0).OnComplete(() => onEndStart?.Invoke());
                 }
             }
             else
@@ -90,7 +90,7 @@ namespace Omnilatent.SimpleAnimation
                 }
                 else
                 {
-                    transform.position = posEnd;
+                    transform.localPosition = posEnd;
                     onEndStart?.Invoke();
                 }
             }
@@ -103,7 +103,7 @@ namespace Omnilatent.SimpleAnimation
                     rect.DOAnchorPos(posStart, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase);
                 else
                 {
-                    transform.DOMove(posStart, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase);
+                    transform.DOLocalMove(posStart, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase);
                 }
             }
             else
@@ -112,7 +112,7 @@ namespace Omnilatent.SimpleAnimation
                     rect.anchoredPosition = posStart;
                 else
                 {
-                    transform.position = posStart;
+                    transform.localPosition = posStart;
                 }
             }
         }
@@ -125,7 +125,7 @@ namespace Omnilatent.SimpleAnimation
                 if(rect != null)
                     rect.DOAnchorPos(posStart, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase).OnComplete(() => onEndHide?.Invoke());
                 else
-                    transform.DOMove(posStart, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase).OnComplete(() => onEndHide?.Invoke());
+                    transform.DOLocalMove(posStart, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase).OnComplete(() => onEndHide?.Invoke());
             }
             else
             {
@@ -136,7 +136,7 @@ namespace Omnilatent.SimpleAnimation
                 }
                 else
                 {
-                    transform.position = posStart;
+                    transform.localPosition = posStart;
                     onEndHide?.Invoke();
                 }
             }

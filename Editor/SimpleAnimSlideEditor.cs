@@ -39,7 +39,7 @@ namespace Omnilatent.SimpleAnimation
                 if (rect != null)
                     slideAnim.PosStart = rect.anchoredPosition;
                 else
-                    slideAnim.PosStart = slideAnim.transform.position;
+                    slideAnim.PosStart = slideAnim.transform.localPosition;
             }
             GUILayout.EndHorizontal();
 
@@ -50,7 +50,7 @@ namespace Omnilatent.SimpleAnimation
                 if (rect != null)
                     slideAnim.PosEnd = rect.anchoredPosition;
                 else
-                    slideAnim.PosEnd = slideAnim.transform.position;
+                    slideAnim.PosEnd = slideAnim.transform.localPosition;
             }
             GUILayout.EndHorizontal();
             serializedObject.ApplyModifiedProperties();
