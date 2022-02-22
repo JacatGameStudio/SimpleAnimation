@@ -23,22 +23,6 @@ namespace Omnilatent.SimpleAnimation
             }
         }
 
-        private void OnEnable()
-        {
-            if (triggerAnim == TimeTriggerAnim.OnEnable)
-            {
-                Show();
-            }
-        }
-
-        private void Start()
-        {
-            if (triggerAnim == TimeTriggerAnim.OnStart)
-            {
-                Show();
-            }
-        }
-
         public override void Show(bool immediately = false)
         {
             if (!immediately)

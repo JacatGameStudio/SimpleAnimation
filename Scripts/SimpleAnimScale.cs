@@ -10,27 +10,8 @@ namespace Omnilatent.SimpleAnimation
         [SerializeField] float scaleStart = 0;
         [SerializeField] float scaleEnd = 1;
 
-        private void OnEnable()
-        {
-            if (triggerAnim == TimeTriggerAnim.OnEnable)
-            {
-                Show();
-            }
-        }
-
-        private void Start()
-        {
-            if (triggerAnim == TimeTriggerAnim.OnStart)
-            {
-                Show();
-            }
-        }
-
         public override void Show(bool immediately = false)
         {
-            if (hideOnAwake)
-                transform.localScale = Vector3.zero;
-
             if (!immediately)
                 transform.DOScale(scaleEnd, timeDuration > 0 ? timeDuration : 0.1f).From(scaleStart).SetEase(showEase).SetDelay(timeDelay > 0 ? timeDelay : 0);
             else
@@ -39,9 +20,6 @@ namespace Omnilatent.SimpleAnimation
 
         public override void Show(Action onEndStart, bool immediately = false)
         {
-            if (hideOnAwake)
-                transform.localScale = Vector3.zero;
-
             if (!immediately)
                 transform.DOScale(scaleEnd, timeDuration > 0 ? timeDuration : 0.1f).From(scaleStart).SetEase(showEase).SetDelay(timeDelay > 0 ? timeDelay : 0).OnComplete(() => onEndStart?.Invoke());
             else

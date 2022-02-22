@@ -29,6 +29,27 @@ namespace Omnilatent.SimpleAnimation
         public virtual void Show(Action onEndStart, bool immediately = false) { }
         public virtual void Hide(bool immediately = false) { }
         public virtual void Hide(Action onEndHide, bool immediately = false) { }
+
+        private void Awake()
+        {
+            gameObject.SetActive(!hideOnAwake);
+        }
+
+        private void OnEnable()
+        {
+            if (triggerAnim == TimeTriggerAnim.OnEnable)
+            {
+                Show();
+            }
+        }
+
+        private void Start()
+        {
+            if (triggerAnim == TimeTriggerAnim.OnStart)
+            {
+                Show();
+            }
+        }
     }
 
     

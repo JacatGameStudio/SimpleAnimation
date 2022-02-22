@@ -18,27 +18,8 @@ namespace Omnilatent.SimpleAnimation
             canvasGroup = GetComponent<CanvasGroup>();
         }
 
-        private void OnEnable()
-        {
-            if (triggerAnim == TimeTriggerAnim.OnEnable)
-            {
-                Show();
-            }
-        }
-
-        private void Start()
-        {
-            if (triggerAnim == TimeTriggerAnim.OnStart)
-            {
-                Show();
-            }
-        }
-
         public override void Show(bool immediately = false)
         {
-            if (hideOnAwake)
-                canvasGroup.alpha = 0;
-
             if (!immediately)
                 canvasGroup.DOFade(opacityEnd, timeDuration > 0 ? timeDuration : 0.1f).From(opacityStart).SetEase(showEase).SetDelay(timeDelay > 0 ? timeDelay : 0);
             else
