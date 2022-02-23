@@ -10,6 +10,10 @@ namespace Omnilatent.SimpleAnimation
         [SerializeField] float scaleStart = 0;
         [SerializeField] float scaleEnd = 1;
 
+        protected override void Awake()
+        {
+            base.Awake();
+        }
         public override void Show(bool immediately = false)
         {
             if (!immediately)

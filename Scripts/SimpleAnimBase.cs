@@ -30,9 +30,10 @@ namespace Omnilatent.SimpleAnimation
         public virtual void Hide(bool immediately = false) { }
         public virtual void Hide(Action onEndHide, bool immediately = false) { }
 
-        private void Awake()
+        protected virtual void Awake()
         {
-            gameObject.SetActive(!hideOnAwake);
+            if (hideOnAwake)
+                Hide(true);
         }
 
         private void OnEnable()

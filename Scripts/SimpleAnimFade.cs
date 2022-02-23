@@ -13,8 +13,9 @@ namespace Omnilatent.SimpleAnimation
         [SerializeField] float opacityEnd = 1;
 
         CanvasGroup canvasGroup;
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             canvasGroup = GetComponent<CanvasGroup>();
         }
 
@@ -28,9 +29,6 @@ namespace Omnilatent.SimpleAnimation
 
         public override void Show(Action onEndStart, bool immediately = false)
         {
-            if (hideOnAwake)
-                canvasGroup.alpha = 0;
-
             if (!immediately)
                 canvasGroup.DOFade(opacityEnd, timeDuration > 0 ? timeDuration : 0.1f).From(opacityStart).SetEase(showEase).SetDelay(timeDelay > 0 ? timeDelay : 0).OnComplete(() => onEndStart?.Invoke());
             else

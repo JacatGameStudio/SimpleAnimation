@@ -14,8 +14,9 @@ namespace Omnilatent.SimpleAnimation
         public Vector2 PosStart { get => posStart; set => posStart = value; }
         public Vector2 PosEnd { get => posEnd; set => posEnd = value; }
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             bool isRect = TryGetComponent<RectTransform>(out RectTransform _rect);
             if (isRect)
             {
