@@ -16,12 +16,13 @@ namespace Omnilatent.SimpleAnimation
 
         protected override void Awake()
         {
-            base.Awake();
+
             bool isRect = TryGetComponent<RectTransform>(out RectTransform _rect);
             if (isRect)
             {
                 rect = _rect;
             }
+            base.Awake();
         }
 
         public override void Show(bool immediately = false)
