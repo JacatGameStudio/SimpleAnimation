@@ -4,6 +4,7 @@ using UnityEngine;
 namespace Omnilatent.SimpleAnimation
 {
     [CustomEditor(typeof(SimpleAnimFade))]
+    [CanEditMultipleObjects]
     public class SimpleAnimFadeEditor : SimpleAnimBaseEditor
     {
         SerializedProperty opacityStart;

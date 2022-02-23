@@ -6,6 +6,7 @@ using UnityEditor;
 namespace Omnilatent.SimpleAnimation
 {
     [CustomEditor(typeof(SimpleAnimScale))]
+    [CanEditMultipleObjects]
     public class SimpleAnimScaleEditor : SimpleAnimBaseEditor
     {
         SerializedProperty scaleStart;

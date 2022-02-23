@@ -4,6 +4,7 @@ using UnityEngine;
 namespace Omnilatent.SimpleAnimation
 {
     [CustomEditor(typeof(SimpleAnimSlide))]
+    [CanEditMultipleObjects]
     public class SimpleAnimSlideEditor : SimpleAnimBaseEditor
     {
         SerializedProperty posStart;
