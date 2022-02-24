@@ -15,8 +15,8 @@ namespace Omnilatent.SimpleAnimation
         CanvasGroup canvasGroup;
         protected override void Awake()
         {
-            base.Awake();
             canvasGroup = GetComponent<CanvasGroup>();
+            base.Awake();
         }
 
         public override void Show(bool immediately = false)
