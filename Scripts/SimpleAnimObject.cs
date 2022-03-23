@@ -5,7 +5,7 @@ namespace Omnilatent.SimpleAnimation
 {
     public class SimpleAnimObject : MonoBehaviour
     {
-        SimpleAnimBase[] simpleAnim;
+        SimpleAnimBase[] simpleAnim = new SimpleAnimBase[0];
         float timeDuration;
 
         /// <summary>
