@@ -5,7 +5,8 @@ namespace Omnilatent.SimpleAnimation
 {
     public class SimpleAnimObject : MonoBehaviour
     {
-        SimpleAnimBase[] simpleAnim = new SimpleAnimBase[0];
+        SimpleAnimBase[] simpleAnim;
+        bool checkInit = false;
         float timeDuration;
 
         /// <summary>
@@ -36,10 +37,13 @@ namespace Omnilatent.SimpleAnimation
         private void Awake()
         {
             simpleAnim = GetComponents<SimpleAnimBase>();
+            checkInit = true;
         }
 
         public void Show(bool immediately = false)
         {
+            if (!checkInit)
+                return;
             foreach (var i in simpleAnim)
             {
                 if (i.isActiveAndEnabled)
@@ -49,6 +53,8 @@ namespace Omnilatent.SimpleAnimation
 
         public void Show(Action onEndShow, bool immediately = false)
         {
+            if (!checkInit)
+                return;
             foreach (var i in simpleAnim)
             {
                 if (i.isActiveAndEnabled)
@@ -58,6 +64,8 @@ namespace Omnilatent.SimpleAnimation
 
         public void Hide(bool immediately = false)
         {
+            if (!checkInit)
+                return;
             foreach (var i in simpleAnim)
             {
                 if (i.isActiveAndEnabled)
@@ -67,6 +75,8 @@ namespace Omnilatent.SimpleAnimation
 
         public void Hide(Action onEndHide, bool immediately = false)
         {
+            if (!checkInit)
+                return;
             foreach (var i in simpleAnim)
             {
                 if (i.isActiveAndEnabled)
@@ -76,6 +86,8 @@ namespace Omnilatent.SimpleAnimation
 
         public SimpleAnimBase GetAnimBase()
         {
+            if (!checkInit)
+                return null;
             if (simpleAnim.Length == 0)
             {
                 Debug.LogError("This SimpleAnimObject does not have any SimpleAnimBase component");
