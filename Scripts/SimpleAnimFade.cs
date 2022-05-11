@@ -40,7 +40,7 @@ namespace Omnilatent.SimpleAnimation
             if (!immediately)
                 canvasGroup.DOFade(opacityStart, timeDuration > 0 ? timeDuration : 0.1f).From(opacityEnd).SetEase(hideEase);
             else
-                canvasGroup.alpha = opacityEnd;
+                canvasGroup.alpha = opacityStart;
         }
 
         public override void Hide(Action onEndHide, bool immediately = false)
