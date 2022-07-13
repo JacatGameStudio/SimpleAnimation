@@ -58,8 +58,10 @@ namespace Omnilatent.SimpleAnimation
             }
             GUILayout.EndHorizontal();
             if (hasChange)
+            {
                 serializedObject.ApplyModifiedProperties();
-            EditorUtility.SetDirty(slideAnim);
+                EditorUtility.SetDirty(slideAnim);
+            }
         }
     }
 }
