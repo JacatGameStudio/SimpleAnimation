@@ -31,12 +31,14 @@ namespace Omnilatent.SimpleAnimation
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
+            bool hasChange = false;
             GUILayout.Space(15);
 
             GUILayout.BeginHorizontal();
             EditorGUILayout.PropertyField(posStart, GUILayout.MaxWidth(450));
             if (GUILayout.Button("Get Pos", GUILayout.MaxWidth(80)))
             {
+                hasChange = true;
                 if (rect != null)
                     slideAnim.PosStart = rect.anchoredPosition;
                 else
@@ -48,13 +50,16 @@ namespace Omnilatent.SimpleAnimation
             EditorGUILayout.PropertyField(posEnd, GUILayout.MaxWidth(450));
             if (GUILayout.Button("Get Pos", GUILayout.MaxWidth(80)))
             {
+                hasChange = true;
                 if (rect != null)
                     slideAnim.PosEnd = rect.anchoredPosition;
                 else
                     slideAnim.PosEnd = slideAnim.transform.localPosition;
             }
             GUILayout.EndHorizontal();
-            serializedObject.ApplyModifiedProperties();
+            if (hasChange)
+                serializedObject.ApplyModifiedProperties();
+            EditorUtility.SetDirty(slideAnim);
         }
     }
 }
