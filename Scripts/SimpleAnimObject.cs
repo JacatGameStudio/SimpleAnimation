@@ -36,36 +36,39 @@ namespace Omnilatent.SimpleAnimation
 
         private void Awake()
         {
+            Initialize();
+        }
+
+        void Initialize()
+        {
+            if (checkInit) return;
             simpleAnim = GetComponents<SimpleAnimBase>();
             checkInit = true;
         }
 
         public void Show(bool immediately = false)
         {
-            if (!checkInit)
-                return;
+            Initialize();
             foreach (var i in simpleAnim)
             {
-                if (i.isActiveAndEnabled)
+                if (i.enabled)
                     i.Show(immediately);
             }
         }
 
         public void Show(Action onEndShow, bool immediately = false)
         {
-            if (!checkInit)
-                return;
+            Initialize();
             foreach (var i in simpleAnim)
             {
-                if (i.isActiveAndEnabled)
+                if (i.enabled)
                     i.Show(onEndShow, immediately);
             }
         }
 
         public void Hide(bool immediately = false)
         {
-            if (!checkInit)
-                return;
+            Initialize();
             foreach (var i in simpleAnim)
             {
                 if (i.isActiveAndEnabled)
@@ -75,8 +78,7 @@ namespace Omnilatent.SimpleAnimation
 
         public void Hide(Action onEndHide, bool immediately = false)
         {
-            if (!checkInit)
-                return;
+            Initialize();
             foreach (var i in simpleAnim)
             {
                 if (i.isActiveAndEnabled)
@@ -86,8 +88,7 @@ namespace Omnilatent.SimpleAnimation
 
         public SimpleAnimBase GetAnimBase()
         {
-            if (!checkInit)
-                return null;
+            Initialize();
             if (simpleAnim.Length == 0)
             {
                 Debug.LogError("This SimpleAnimObject does not have any SimpleAnimBase component");
