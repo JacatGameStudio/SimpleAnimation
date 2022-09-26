@@ -9,6 +9,9 @@ namespace Omnilatent.SimpleAnimation
         bool checkInit = false;
         float timeDuration;
 
+        private bool hasShown = false;
+        public bool HasShown { get => hasShown; }
+
         /// <summary>
         /// return timeDuration of first simpleAnimBase
         /// </summary>
@@ -54,6 +57,7 @@ namespace Omnilatent.SimpleAnimation
                 if (i.enabled)
                     i.Show(immediately);
             }
+            hasShown = true;
         }
 
         public void Show(Action onEndShow, bool immediately = false)
@@ -64,6 +68,7 @@ namespace Omnilatent.SimpleAnimation
                 if (i.enabled)
                     i.Show(onEndShow, immediately);
             }
+            hasShown = true;
         }
 
         public void Hide(bool immediately = false)
@@ -74,6 +79,7 @@ namespace Omnilatent.SimpleAnimation
                 if (i.isActiveAndEnabled)
                     i.Hide(immediately);
             }
+            hasShown = false;
         }
 
         public void Hide(Action onEndHide, bool immediately = false)
@@ -84,6 +90,7 @@ namespace Omnilatent.SimpleAnimation
                 if (i.isActiveAndEnabled)
                     i.Hide(onEndHide, immediately);
             }
+            hasShown = false;
         }
 
         public SimpleAnimBase GetAnimBase()
