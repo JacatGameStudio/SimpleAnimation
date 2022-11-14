@@ -15,6 +15,9 @@ namespace Omnilatent.SimpleAnimation
         [Tooltip("Time trigger amimation")] [SerializeField] protected TimeTriggerAnim triggerAnim = TimeTriggerAnim.OnStart;
         [SerializeField] protected bool hideOnAwake = true;
 
+        [Tooltip("If true, animation will ignore time scale.")]
+        [SerializeField] protected bool ignoreTimeScale = false;
+
         /// <summary>
         /// Time duration of animation
         /// </summary>

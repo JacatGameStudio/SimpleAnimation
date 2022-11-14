@@ -22,7 +22,7 @@ namespace Omnilatent.SimpleAnimation
         public override void Show(bool immediately = false)
         {
             if (!immediately)
-                canvasGroup.DOFade(opacityEnd, timeDuration > 0 ? timeDuration : 0.1f).From(opacityStart).SetEase(showEase).SetDelay(timeDelay > 0 ? timeDelay : 0);
+                canvasGroup.DOFade(opacityEnd, timeDuration > 0 ? timeDuration : 0.1f).From(opacityStart).SetEase(showEase).SetDelay(timeDelay > 0 ? timeDelay : 0).SetUpdate(ignoreTimeScale);
             else
                 canvasGroup.alpha = opacityEnd;
         }
@@ -30,7 +30,7 @@ namespace Omnilatent.SimpleAnimation
         public override void Show(Action onEndStart, bool immediately = false)
         {
             if (!immediately)
-                canvasGroup.DOFade(opacityEnd, timeDuration > 0 ? timeDuration : 0.1f).From(opacityStart).SetEase(showEase).SetDelay(timeDelay > 0 ? timeDelay : 0).OnComplete(() => onEndStart?.Invoke());
+                canvasGroup.DOFade(opacityEnd, timeDuration > 0 ? timeDuration : 0.1f).From(opacityStart).SetEase(showEase).SetDelay(timeDelay > 0 ? timeDelay : 0).SetUpdate(ignoreTimeScale).OnComplete(() => onEndStart?.Invoke());
             else
                 canvasGroup.alpha = opacityEnd;
         }
@@ -38,7 +38,7 @@ namespace Omnilatent.SimpleAnimation
         public override void Hide(bool immediately = false)
         {
             if (!immediately)
-                canvasGroup.DOFade(opacityStart, timeDuration > 0 ? timeDuration : 0.1f).From(opacityEnd).SetEase(hideEase);
+                canvasGroup.DOFade(opacityStart, timeDuration > 0 ? timeDuration : 0.1f).From(opacityEnd).SetEase(hideEase).SetUpdate(ignoreTimeScale);
             else
                 canvasGroup.alpha = opacityStart;
         }
@@ -46,7 +46,7 @@ namespace Omnilatent.SimpleAnimation
         public override void Hide(Action onEndHide, bool immediately = false)
         {
             if (!immediately)
-                canvasGroup.DOFade(opacityStart, timeDuration > 0 ? timeDuration : 0.1f).From(opacityEnd).SetEase(hideEase).OnComplete(() => onEndHide?.Invoke());
+                canvasGroup.DOFade(opacityStart, timeDuration > 0 ? timeDuration : 0.1f).From(opacityEnd).SetEase(hideEase).SetUpdate(ignoreTimeScale).OnComplete(() => onEndHide?.Invoke());
             else
             {
                 canvasGroup.alpha = opacityStart;

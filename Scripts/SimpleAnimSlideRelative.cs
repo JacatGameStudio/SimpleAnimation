@@ -40,12 +40,16 @@ namespace Omnilatent.SimpleAnimation
                 if (rect != null)
                 {
                     rect.anchoredPosition = GetFinalPosition(rect.anchoredPosition, posStart);
-                    rect.DOAnchorPos(GetFinalPosition(rect.anchoredPosition, posEnd), timeDuration > 0 ? timeDuration : 0.1f).SetEase(showEase).SetDelay(timeDelay > 0 ? timeDelay : 0).OnComplete(() => onEndStart?.Invoke());
+                    rect.DOAnchorPos(GetFinalPosition(rect.anchoredPosition, posEnd), timeDuration > 0 ? timeDuration : 0.1f).SetEase(showEase).SetDelay(timeDelay > 0 ? timeDelay : 0)
+                        .SetUpdate(ignoreTimeScale)
+                        .OnComplete(() => onEndStart?.Invoke());
                 }
                 else
                 {
                     transform.localPosition = GetFinalPosition(transform.localPosition, posStart);
-                    transform.DOLocalMove(GetFinalPosition(transform.localPosition, posEnd), timeDuration > 0 ? timeDuration : 0.1f).SetEase(showEase).SetDelay(timeDelay > 0 ? timeDelay : 0).OnComplete(() => onEndStart?.Invoke());
+                    transform.DOLocalMove(GetFinalPosition(transform.localPosition, posEnd), timeDuration > 0 ? timeDuration : 0.1f).SetEase(showEase).SetDelay(timeDelay > 0 ? timeDelay : 0)
+                        .SetUpdate(ignoreTimeScale)
+                        .OnComplete(() => onEndStart?.Invoke());
                 }
             }
             else
@@ -86,9 +90,13 @@ namespace Omnilatent.SimpleAnimation
             if (!immediately)
             {
                 if (rect != null)
-                    rect.DOAnchorPos(GetFinalPosition(rect.anchoredPosition, posStart), timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase).OnComplete(() => onEndHide?.Invoke());
+                    rect.DOAnchorPos(GetFinalPosition(rect.anchoredPosition, posStart), timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase)
+                        .SetUpdate(ignoreTimeScale)
+                        .OnComplete(() => onEndHide?.Invoke());
                 else
-                    transform.DOLocalMove(GetFinalPosition(transform.localPosition, posStart), timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase).OnComplete(() => onEndHide?.Invoke());
+                    transform.DOLocalMove(GetFinalPosition(transform.localPosition, posStart), timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase)
+                        .SetUpdate(ignoreTimeScale)
+                        .OnComplete(() => onEndHide?.Invoke());
             }
             else
             {
