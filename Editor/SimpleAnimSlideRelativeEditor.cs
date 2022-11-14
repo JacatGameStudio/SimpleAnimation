@@ -9,7 +9,8 @@ namespace Omnilatent.SimpleAnimation
     public class SimpleAnimSlideRelativeEditor : SimpleAnimBaseEditor
     {
         SerializedProperty posStart;
-        SerializedProperty posEnd;
+        //SerializedProperty posEnd;
+        SerializedProperty addition;
 
         SimpleAnimSlideRelative m_Target;
 
@@ -18,7 +19,7 @@ namespace Omnilatent.SimpleAnimation
             base.Awake();
 
             posStart = serializedObject.FindProperty("posStart");
-            posEnd = serializedObject.FindProperty("posEnd");
+            addition = serializedObject.FindProperty("posEnd");
 
             m_Target = target as SimpleAnimSlideRelative;
         }
@@ -30,7 +31,7 @@ namespace Omnilatent.SimpleAnimation
 
             GUILayout.BeginHorizontal();
             EditorGUILayout.PropertyField(posStart, GUILayout.MaxWidth(450));
-            if (GUILayout.Button("Get Pos", GUILayout.MaxWidth(80)))
+            if (GUILayout.Button("Start Pos", GUILayout.MaxWidth(80)))
             {
                 if (m_Target.rect != null)
                     m_Target.PosStart = m_Target.rect.anchoredPosition;
@@ -40,13 +41,13 @@ namespace Omnilatent.SimpleAnimation
             GUILayout.EndHorizontal();
 
             GUILayout.BeginHorizontal();
-            EditorGUILayout.PropertyField(posEnd, GUILayout.MaxWidth(450));
-            if (GUILayout.Button("Get Pos", GUILayout.MaxWidth(80)))
+            EditorGUILayout.PropertyField(addition, new GUIContent("Addition"), GUILayout.MaxWidth(450));
+            if (GUILayout.Button("Addition", GUILayout.MaxWidth(80)))
             {
                 if (m_Target.rect != null)
-                    m_Target.PosEnd = m_Target.rect.anchoredPosition;
+                    m_Target.PosEnd = m_Target.rect.anchoredPosition - m_Target.PosStart;
                 else
-                    m_Target.PosEnd = m_Target.transform.localPosition;
+                    m_Target.PosEnd = (Vector2)m_Target.transform.localPosition - m_Target.PosStart;
             }
             GUILayout.EndHorizontal();
             serializedObject.ApplyModifiedProperties();
