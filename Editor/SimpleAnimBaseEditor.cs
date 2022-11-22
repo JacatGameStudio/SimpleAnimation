@@ -12,6 +12,7 @@ namespace Omnilatent.SimpleAnimation
         protected SerializedProperty timeDelay;
         protected SerializedProperty triggerAnim;
         protected SerializedProperty hideOnAwake;
+        protected SerializedProperty ignoreTimeScale;
 
         bool advanced;
         protected virtual void Awake()
@@ -22,6 +23,7 @@ namespace Omnilatent.SimpleAnimation
             triggerAnim = serializedObject.FindProperty("triggerAnim");
             hideOnAwake = serializedObject.FindProperty("hideOnAwake");
             timeDuration = serializedObject.FindProperty("timeDuration");
+            ignoreTimeScale = serializedObject.FindProperty("ignoreTimeScale");
         }
 
         public override void OnInspectorGUI()
@@ -37,6 +39,7 @@ namespace Omnilatent.SimpleAnimation
                 EditorGUILayout.PropertyField(timeDelay);
                 EditorGUILayout.PropertyField(triggerAnim);
                 EditorGUILayout.PropertyField(hideOnAwake);
+                EditorGUILayout.PropertyField(ignoreTimeScale);
             }
             serializedObject.ApplyModifiedProperties();
         }

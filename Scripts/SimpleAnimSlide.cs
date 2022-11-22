@@ -32,12 +32,12 @@ namespace Omnilatent.SimpleAnimation
                 if (rect != null)
                 {
                     rect.anchoredPosition = posStart;
-                    rect.DOAnchorPos(posEnd, timeDuration > 0 ? timeDuration : 0.1f).SetEase(showEase).SetDelay(timeDelay > 0 ? timeDelay : 0);
+                    rect.DOAnchorPos(posEnd, timeDuration > 0 ? timeDuration : 0.1f).SetEase(showEase).SetDelay(timeDelay > 0 ? timeDelay : 0).SetUpdate(ignoreTimeScale);
                 }
                 else
                 {
                     transform.localPosition = posStart;
-                    transform.DOLocalMove(posEnd, timeDuration > 0 ? timeDuration : 0.1f).SetEase(showEase).SetDelay(timeDelay > 0 ? timeDelay : 0);
+                    transform.DOLocalMove(posEnd, timeDuration > 0 ? timeDuration : 0.1f).SetEase(showEase).SetDelay(timeDelay > 0 ? timeDelay : 0).SetUpdate(ignoreTimeScale);
                 }
             }
             else
@@ -59,12 +59,16 @@ namespace Omnilatent.SimpleAnimation
                 if (rect != null)
                 {
                     rect.anchoredPosition = posStart;
-                    rect.DOAnchorPos(posEnd, timeDuration > 0 ? timeDuration : 0.1f).SetEase(showEase).SetDelay(timeDelay > 0 ? timeDelay : 0).OnComplete(() => onEndStart?.Invoke());
+                    rect.DOAnchorPos(posEnd, timeDuration > 0 ? timeDuration : 0.1f).SetEase(showEase).SetDelay(timeDelay > 0 ? timeDelay : 0)
+                        .SetUpdate(ignoreTimeScale)
+                        .OnComplete(() => onEndStart?.Invoke());
                 }
                 else
                 {
                     transform.localPosition = posStart;
-                    transform.DOLocalMove(posEnd, timeDuration > 0 ? timeDuration : 0.1f).SetEase(showEase).SetDelay(timeDelay > 0 ? timeDelay : 0).OnComplete(() => onEndStart?.Invoke());
+                    transform.DOLocalMove(posEnd, timeDuration > 0 ? timeDuration : 0.1f).SetEase(showEase).SetDelay(timeDelay > 0 ? timeDelay : 0)
+                        .SetUpdate(ignoreTimeScale)
+                        .OnComplete(() => onEndStart?.Invoke());
                 }
             }
             else
@@ -86,10 +90,10 @@ namespace Omnilatent.SimpleAnimation
             if (!immediately)
             {
                 if(rect != null)
-                    rect.DOAnchorPos(posStart, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase);
+                    rect.DOAnchorPos(posStart, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase).SetUpdate(ignoreTimeScale);
                 else
                 {
-                    transform.DOLocalMove(posStart, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase);
+                    transform.DOLocalMove(posStart, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase).SetUpdate(ignoreTimeScale);
                 }
             }
             else
@@ -109,9 +113,13 @@ namespace Omnilatent.SimpleAnimation
             if (!immediately)
             {
                 if(rect != null)
-                    rect.DOAnchorPos(posStart, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase).OnComplete(() => onEndHide?.Invoke());
+                    rect.DOAnchorPos(posStart, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase)
+                        .SetUpdate(ignoreTimeScale)
+                        .OnComplete(() => onEndHide?.Invoke());
                 else
-                    transform.DOLocalMove(posStart, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase).OnComplete(() => onEndHide?.Invoke());
+                    transform.DOLocalMove(posStart, timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase)
+                        .SetUpdate(ignoreTimeScale)
+                        .OnComplete(() => onEndHide?.Invoke());
             }
             else
             {
