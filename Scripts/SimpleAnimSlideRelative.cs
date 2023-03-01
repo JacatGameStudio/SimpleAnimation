@@ -1,4 +1,4 @@
-﻿using DG.Tweening;
+using DG.Tweening;
 using System;
 using UnityEngine;
 
@@ -12,19 +12,39 @@ namespace Omnilatent.SimpleAnimation
 
         public RectTransform rect;
 
-        public Vector2 PosStart { get => posStart; set => posStart = value; }
-        public Vector2 PosEnd { get => posEnd; set => posEnd = value; }
+        public Vector2 PosStart
+        {
+            get => posStart;
+            set => posStart = value;
+        }
+
+        public Vector2 PosEnd
+        {
+            get => posEnd;
+            set => posEnd = value;
+        }
 
         enum MoveType
         {
             LocalPosition = 0, //move object to the designated local position
             Relative = 1 //move object by adding in value to position
         }
+
         MoveType moveType = MoveType.Relative;
+        private Vector2 initialPosition;
 
         protected override void Awake()
         {
             TryGetComponent<RectTransform>(out rect);
+            if (rect != null)
+            {
+                initialPosition = rect.anchoredPosition;
+            }
+            else
+            {
+                initialPosition = transform.position;
+            }
+
             base.Awake();
         }
 
@@ -37,33 +57,24 @@ namespace Omnilatent.SimpleAnimation
         {
             if (!immediately)
             {
+                SetTransformPosition(GetFinalPosition(initialPosition, posStart));
                 if (rect != null)
                 {
-                    rect.anchoredPosition = GetFinalPosition(rect.anchoredPosition, posStart);
-                    rect.DOAnchorPos(GetFinalPosition(rect.anchoredPosition, posEnd), timeDuration > 0 ? timeDuration : 0.1f).SetEase(showEase).SetDelay(timeDelay > 0 ? timeDelay : 0)
+                    rect.DOAnchorPos(GetFinalPosition(initialPosition, posEnd), timeDuration > 0 ? timeDuration : 0.1f).SetEase(showEase).SetDelay(timeDelay > 0 ? timeDelay : 0)
                         .SetUpdate(ignoreTimeScale)
                         .OnComplete(() => onEndStart?.Invoke());
                 }
                 else
                 {
-                    transform.localPosition = GetFinalPosition(transform.localPosition, posStart);
-                    transform.DOLocalMove(GetFinalPosition(transform.localPosition, posEnd), timeDuration > 0 ? timeDuration : 0.1f).SetEase(showEase).SetDelay(timeDelay > 0 ? timeDelay : 0)
+                    transform.DOLocalMove(GetFinalPosition(initialPosition, posEnd), timeDuration > 0 ? timeDuration : 0.1f).SetEase(showEase).SetDelay(timeDelay > 0 ? timeDelay : 0)
                         .SetUpdate(ignoreTimeScale)
                         .OnComplete(() => onEndStart?.Invoke());
                 }
             }
             else
             {
-                if (rect != null)
-                {
-                    rect.anchoredPosition = GetFinalPosition(rect.anchoredPosition, posEnd);
-                    onEndStart?.Invoke();
-                }
-                else
-                {
-                    transform.localPosition = GetFinalPosition(transform.localPosition, posEnd);
-                    onEndStart?.Invoke();
-                }
+                SetTransformPosition(GetFinalPosition(initialPosition, posEnd));
+                onEndStart?.Invoke();
             }
         }
 
@@ -76,6 +87,7 @@ namespace Omnilatent.SimpleAnimation
                 case MoveType.Relative:
                     return currentLocalPos + additionalPos;
             }
+
             return additionalPos;
         }
 
@@ -89,27 +101,36 @@ namespace Omnilatent.SimpleAnimation
         {
             if (!immediately)
             {
+                SetTransformPosition(GetFinalPosition(initialPosition, posEnd));
                 if (rect != null)
-                    rect.DOAnchorPos(GetFinalPosition(rect.anchoredPosition, posStart), timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase)
+                {
+                    rect.DOAnchorPos(GetFinalPosition(initialPosition, posStart), timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase)
                         .SetUpdate(ignoreTimeScale)
                         .OnComplete(() => onEndHide?.Invoke());
+                }
                 else
-                    transform.DOLocalMove(GetFinalPosition(transform.localPosition, posStart), timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase)
+                {
+                    transform.DOLocalMove(GetFinalPosition(initialPosition, posStart), timeDuration > 0 ? timeDuration : 0.1f).SetEase(hideEase)
                         .SetUpdate(ignoreTimeScale)
                         .OnComplete(() => onEndHide?.Invoke());
+                }
             }
             else
             {
-                if (rect != null)
-                {
-                    rect.anchoredPosition = GetFinalPosition(rect.anchoredPosition, posStart);
-                    onEndHide?.Invoke();
-                }
-                else
-                {
-                    transform.localPosition = GetFinalPosition(transform.localPosition, posStart);
-                    onEndHide?.Invoke();
-                }
+                SetTransformPosition(GetFinalPosition(initialPosition, posStart));
+                onEndHide?.Invoke();
+            }
+        }
+
+        void SetTransformPosition(Vector2 pos)
+        {
+            if (rect != null)
+            {
+                rect.anchoredPosition = pos;
+            }
+            else
+            {
+                transform.localPosition = pos;
             }
         }
     }
